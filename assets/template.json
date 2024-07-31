@@ -1,0 +1,129 @@
+{
+	"owo": {
+		"check_owo_status": true,
+		"join_owo_giveaway": true,
+		"get_owo_prefix": {
+			"mode": false,
+			"default": "owo"
+		},
+
+		"someone_mentions": true,
+		"someone_challenges": true,
+		"channel_id": [
+			123
+		],
+
+		"image_captcha": {
+			"mode": true,
+			"attempts": 3,
+			"sleep_after_solve": true,
+			"twocaptcha": ["api"]
+		},
+
+		"hcaptcha": {
+			"mode": true,
+			"attempts": 5,
+			"sleep_after_solve": true,
+			"twocaptcha": ["api"]
+		},
+
+		"twocaptcha_balance": {
+			"mode": true,
+			"amount": 0.01
+		},
+
+		"quest": {
+			"mode": true,
+			"channel_id": [
+				123
+			]
+		},
+
+		"topgg": false,
+		"daily": true,
+		"sleep": true,
+
+		"grind": {
+			"owo": true,
+			"hunt": true,
+			"battle": true,
+			"quote": true
+		},
+
+		"huntbot": {
+			"claim_submit": true,
+			"upgrade": {
+				"mode": false,
+				"type": "duration"
+			}
+		},
+
+		"gem": {
+			"mode": false,
+			"sort": "max",
+			"star": true,
+			"open_box": true,
+			"open_crate": true,
+			"open_flootbox": true
+		},
+
+		"glitch": true,
+
+		"animals": {
+			"mode": false,
+			"type": "sac",
+			"rank": "all"
+		},
+
+		"caught": true,
+
+		"gamble": {
+			"slot": {
+				"mode": false,
+				"bet": 1,
+				"rate": 2,
+				"max": 250000
+			},
+			"coinflip": {
+				"mode": false,
+				"bet": 1,
+				"rate": 2,
+				"max": 250000
+			},
+			"blackjack": {
+				"mode": false,
+				"bet": 1,
+				"rate": 2,
+				"max": 250000
+			}
+		},
+
+		"pray_curse": {
+			"mode": false,
+			"type": "pray",
+			"user_id": ""
+		},
+
+		"entertainment": {
+			"run": false,
+			"pup": false,
+			"piku": false,
+			"common_ring": false
+		},
+
+		"command": {
+			"mode": true,
+			"owner_id": [123, 123]
+		},
+
+		"webhook": {
+			"mode": true,
+			"mentioner_id": [123, 123],
+			"url": "url"
+		},
+
+		"log_file": true,
+		"music_notification": false,
+		"error_retry_times": 10
+	}
+}
