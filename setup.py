@@ -258,7 +258,7 @@ class OwO:
 			data['sleep_after_solve'] = select == "Yes"
 			while True:
 				try:
-					amount = int(input(f"[!] How many TwoCaptcha API do you wanna add to {name} solving system (Ex: 1) (Recent: {data['twocaptcha']}): ")) + 1
+					amount = input(f"[!] How many TwoCaptcha API do you wanna add to {name} solving system (Ex: 1) (Recent: {data['twocaptcha']}): ")
 					break
 				except ValueError:
 					print("[-] You must enter a number")
