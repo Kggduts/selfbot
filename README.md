@@ -7,8 +7,4 @@
   [![Issues](https://img.shields.io/github/issues/realphandat/phandat-selfbot?style=for-the-badge&logo=&color=informational)](https://github.com/realphandat/phandat-selfbot/issues)
 </div>
 
-- [Download](https://git-scm.com/downloads) and Install GIT.
-- [Download](https://python.org/downloads) and Install PYTHON (3.8/higher version)
-- `python -m pip install -r requirements.txt`
-- `python setup.py`
-- `python main.py`
+<p align="center"><img align="center" src="https://media.discordapp.net/attachments/1267227844489248848/1268479557770543246/image.png?ex=66ac9325&is=66ab41a5&hm=93d0eba2ad80dc9fd6888401efc155bb5fc6c0897e34f7c4208c6197193ca1a6&=&format=webp&quality=lossless&width=416&height=390"></p>
