@@ -22,7 +22,7 @@ class OwO:
 			"Solve hcaptcha",
 			"Stop when TwoCaptcha balance is below any number",
 			"Do quest",
-			"Vote top.gg",
+			"Vote top.gg (Require chorme)",
 			"Claim daily",
 			"Go to sleep",
 			"Grind (Send OwO/UwU, hunt, battle, quote)",
@@ -136,7 +136,7 @@ class OwO:
 			self.quest(token, config)
 			print()
 
-		if select_all or "Vote top.gg" in select:
+		if select_all or "Vote top.gg (Require chorme)" in select:
 			self.topgg(token, config)
 
 		if select_all or "Claim daily" in select:
@@ -264,7 +264,12 @@ class OwO:
 					print("[-] You must enter a number")
 			twocaptcha = []
 			for num in range(1, amount):
-				x = input(f"[!] Enter TwoCaptcha API {num}: ")
+				while True:
+					try:
+						x = int(input(f"[!] Enter TwoCaptcha API {num}: "))
+						break
+					except ValueError:
+						print("[-] You must enter a number")
 				twocaptcha.append(x)
 			data['twocaptcha'] = twocaptcha
 
@@ -304,7 +309,7 @@ class OwO:
 			config[token]['quest']['channel_id'] = quest_channel_id
 
 	def topgg(self, token, config):
-		print(f"[!] Vote top.gg (Recent: {config[token]['topgg']})")
+		print(f"[!] Vote top.gg (Require chorme) (Recent: {config[token]['topgg']})")
 		select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = self.mode)
 		config[token]['topgg'] = select == "Yes"
 
