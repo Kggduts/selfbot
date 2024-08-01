@@ -264,12 +264,7 @@ class OwO:
 					print("[-] You must enter a number")
 			twocaptcha = []
 			for num in range(1, amount):
-				while True:
-					try:
-						x = int(input(f"[!] Enter TwoCaptcha API {num}: "))
-						break
-					except ValueError:
-						print("[-] You must enter a number")
+				x = input(f"[!] Enter TwoCaptcha API {num}: ")
 				twocaptcha.append(x)
 			data['twocaptcha'] = twocaptcha
 
