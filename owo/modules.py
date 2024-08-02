@@ -172,7 +172,6 @@ class Modules:
 						for quest in quests:
 							if self.client.conditions.single_quest(quest[0]):
 								self.client.data.discord.quest = quests[0]
-								self.client.logger.info(self.client.data.discord.quest)
 								break
 						else:
 							self.client.logger.error(f"Don't have multi OwO clients to do couple quest")
@@ -187,7 +186,7 @@ class Modules:
 						self.client.data.discord.quest[1] = reward
 
 					self.client.data.checking.doing_quest = True
-					self.client.logger.info(self.client.data.discord.quest[0])
+					self.client.logger.info(f"{self.client.data.discord.quest[0]} ({self.client.data.discord.quest[1]})")
 					if re.findall(r"Say 'owo' [0-9]+ times!", self.client.data.discord.quest[0]):
 						self.client.data.quest.owo = True
 					elif re.findall(r"[0-9]+ from hunting and battling!", self.client.data.discord.quest[0]):
