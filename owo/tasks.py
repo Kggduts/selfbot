@@ -147,7 +147,7 @@ class Tasks:
 
 	@tasks.loop(seconds = random.randint(300, 600))
 	async def pray_curse(self):
-		if self.client.data.config.pray_curse['mode'] and not self.client.data.quest.pray_curse and not self.client.data.checking.block_pray_curse:
+		if self.client.data.config.pray_curse['mode'] and (not self.client.data.quest.pray or not self.client.data.quest.curse) and not self.client.data.checking.block_pray_curse:
 			if self.client.data.config.pray_curse['type'].lower() == "pray":
 				await self.client.modules.pray(self.client.data.config.pray_curse['user_id'])
 			else:

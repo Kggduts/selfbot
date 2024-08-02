@@ -5,8 +5,8 @@ import json
 class Data:
 	def __init__(self, token):
 		self.config = Config(token)
-		self.owo = 408785106942164992
 
+		self.owo = OwO()
 		self.cmd = CMD()
 		self.stat = Stat()
 		self.emoji = Emoji()
@@ -53,6 +53,10 @@ class Config:
 			self.log_file = data[token]['log_file']
 			self.music_notification = data[token]['music_notification']
 			self.error_retry_times = data[token]['error_retry_times']
+
+class OwO:
+	def __init__(self):
+		self.id = 408785106942164992
 
 class CMD:
 	def __init__(self):

@@ -27,7 +27,7 @@ class OwOSelfbot(discord.Client):
 	async def on_ready(self):
 		if self.data.selfbot.on_ready:
 			self.data.selfbot.on_ready = False
-			self.data.owo = self.get_user(self.data.owo)
+			self.data.owo = self.get_user(self.data.owo.id)
 			self.logger = await self.log.create("owo")
 			await self.modules.startup()
 			await self.modules.intro()
