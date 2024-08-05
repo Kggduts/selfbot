@@ -1,3 +1,4 @@
+import sys
 import discord
 
 from owo.data import Data
@@ -34,6 +35,8 @@ class OwOSelfbot(discord.Client):
 			await self.tasks.start()
 
 	async def on_message(self, message):
+		if self.data.selfbot.expire:
+			sys.exit()
 		await self.modules.detect_image_captcha(message)
 		await self.modules.detect_hcaptcha(message)
 		await self.modules.detect_unknown_captcha(message)

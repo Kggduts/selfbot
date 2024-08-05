@@ -11,7 +11,7 @@ class Conditions:
 		if datetime.datetime.now(datetime.UTC) < reset_time:
 			reset_time = reset_time - datetime.timedelta(days = 1)
 		reset_time = (reset_time - datetime.datetime.now(datetime.UTC)).seconds
-		return(reset_time + 60)
+		return(reset_time + 30)
 
 	def message(self, message, is_owo, in_channel, all_content, any_content):
 		if not is_owo or message.author.id == self.client.data.owo.id:

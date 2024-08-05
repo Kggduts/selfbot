@@ -22,7 +22,7 @@ class Data:
 
 class Config:
 	def __init__(self, token):
-		self.file = "configs/owo.json"
+		self.file = "configs/owo_selfbot.json"
 		with open(self.file) as file:
 			data = json.load(file)
 			self.token = token
@@ -111,6 +111,7 @@ class Discord:
 
 class Selfbot:
 	def __init__(self):
+		self.expire = False
 		self.on_ready = True
 		self.turn_on_time = time.time()
 		self.work_time = random.randint(600, 1200)

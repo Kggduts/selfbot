@@ -162,7 +162,7 @@ class Modules:
 					self.client.data.available.quest = False
 					next_quest = self.client.conditions.reset_time()
 					self.client.data.timeout.quest = next_quest + time.time()
-					self.client.logger.info(f"Finished all quests ({datetime.timedelta(seconds = next_quest)} seconds)")
+					self.client.logger.info(f"Finished all quests ({datetime.timedelta(seconds = next_quest)})")
 				else:
 					tasks = re.findall(r"\*\*[1-3]. (.*?)\*\*", quest_message.embeds[0].description)
 					rewards = re.findall(r"<:blank:427371936482328596>\`‣ Reward:\` (.*?)\n<:blank:427371936482328596>", quest_message.embeds[0].description)
@@ -232,7 +232,7 @@ class Modules:
 								if not self.client.data.quest.cookie:
 									break
 							cookie_again = self.client.conditions.reset_time()
-							self.client.logger.info(f"Give cookie after {datetime.timedelta(seconds = cookie_again)} seconds")
+							self.client.logger.info(f"Give cookie after {datetime.timedelta(seconds = cookie_again)}")
 							await asyncio.sleep(cookie_again)
 
 					elif re.findall(r"Have a friend pray to you [0-9]+ times!", self.client.data.discord.quest[0]):
@@ -348,9 +348,9 @@ class Modules:
 				daily_again = self.client.conditions.reset_time()
 				self.client.data.timeout.daily = daily_again + time.time()
 				if "next daily" in daily_message.content:
-					self.client.logger.info(f"Claimed daily ({datetime.timedelta(seconds = daily_again)} seconds)")
+					self.client.logger.info(f"Claimed daily ({datetime.timedelta(seconds = daily_again)})")
 				elif "Nu" in daily_message.content:
-					self.client.logger.info(f"Claim daily after {datetime.timedelta(seconds = daily_again)} seconds")
+					self.client.logger.info(f"Couldn't claim daily ({datetime.timedelta(seconds = daily_again)})")
 			except asyncio.TimeoutError:
 				self.client.logger.error(f"Couldn't get daily message")
 
@@ -447,7 +447,7 @@ class Modules:
 					retry_huntbot = re.findall(r"(?<=Password will reset in )(\d+)", huntbot_message.content)
 					retry_huntbot = int(int(retry_huntbot[0]) * 60)
 					self.client.data.timeout.huntbot = retry_huntbot + time.time()
-					self.client.logger.info(f"Lost huntbot message, retry after {datetime.timedelta(seconds = retry_huntbot)} seconds")
+					self.client.logger.info(f"Lost huntbot message, retry after {datetime.timedelta(seconds = retry_huntbot)}")
 				elif self.client.data.available.selfbot and self.client.conditions.message(huntbot_message, True, True, [str(self.client.data.discord.nickname), 'Here is your password!'], []):
 					await self.client.webhooks.send(
 						title = "🤖 HUNTBOT CAPTCHA APPEARS 🤖",
@@ -486,7 +486,7 @@ class Modules:
 					else:
 						next_huntbot = int(int(next_huntbot[0]) * 3600 + int(next_huntbot[1]) * 60)
 					self.client.data.timeout.huntbot = next_huntbot + time.time()
-					self.client.logger.info(f"Huntbot'll be back in {datetime.timedelta(seconds = next_huntbot)} seconds")
+					self.client.logger.info(f"Huntbot'll be back in {datetime.timedelta(seconds = next_huntbot)}")
 					await self.client.webhooks.send(
 						title = "📌 SUBMITTED HUNTBOT 📌",
 						description = huntbot_message.content,
@@ -523,7 +523,7 @@ class Modules:
 					elif len(glitch_end) == 3:
 						glitch_end = int(int(glitch_end[0]) * 3600 + int(glitch_end[1]) * 60 + int(glitch_end[2]))
 					self.client.data.timeout.glitch = glitch_end + time.time()
-					self.client.logger.info(f"Distorted animals are available ({datetime.timedelta(seconds = glitch_end)} seconds)")
+					self.client.logger.info(f"Distorted animals are available ({datetime.timedelta(seconds = glitch_end)})")
 				elif "not available" in glitch_message.content:
 					self.client.logger.info(f"Distorted animals aren't available")
 			except asyncio.TimeoutError:
@@ -625,7 +625,7 @@ class Modules:
 				await self.client.wait_for("message", check = lambda message: self.client.conditions.message(message, True, True, ['tired to run'], []), timeout = 5)
 				run_again = self.client.conditions.reset_time()
 				self.client.data.timeout.entertainment = run_again + time.time()
-				self.client.logger.info(f"Run for today is over ({datetime.timedelta(seconds = run_again)} seconds)")
+				self.client.logger.info(f"Run for today is over ({datetime.timedelta(seconds = run_again)})")
 				self.client.data.checking.run_limit = True
 			except asyncio.TimeoutError:
 				pass
@@ -639,7 +639,7 @@ class Modules:
 				await self.client.wait_for("message", check = lambda message: self.client.conditions.message(message, True, True, ['no puppies'], []), timeout = 5)
 				pup_again = self.client.conditions.reset_time()
 				self.client.data.timeout.entertainment = pup_again + time.time()
-				self.client.logger.info(f"Pup for today is over ({datetime.timedelta(seconds = pup_again)} seconds)")
+				self.client.logger.info(f"Pup for today is over ({datetime.timedelta(seconds = pup_again)})")
 				self.client.data.checking.pup_limit = True
 			except asyncio.TimeoutError:
 				pass
@@ -653,7 +653,7 @@ class Modules:
 				await self.client.wait_for("message", check = lambda message: self.client.conditions.message(message, True, True, ['out of carrots'], []), timeout = 5)
 				piku_again = self.client.conditions.reset_time()
 				self.client.data.timeout.entertainment = piku_again + time.time()
-				self.client.logger.info(f"Piku for today is over ({datetime.timedelta(seconds = piku_again)} seconds)")
+				self.client.logger.info(f"Piku for today is over ({datetime.timedelta(seconds = piku_again)})")
 				self.client.data.checking.piku_limit = True
 			except asyncio.TimeoutError:
 				pass
