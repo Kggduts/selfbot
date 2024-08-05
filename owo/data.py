@@ -111,7 +111,6 @@ class Discord:
 
 class Selfbot:
 	def __init__(self):
-		self.expire = False
 		self.on_ready = True
 		self.turn_on_time = time.time()
 		self.work_time = random.randint(600, 1200)

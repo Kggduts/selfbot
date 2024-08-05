@@ -2,7 +2,6 @@ import discord
 import asyncio
 import aiohttp
 import random
-import json
 import re
 import os
 import io

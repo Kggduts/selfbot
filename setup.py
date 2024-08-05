@@ -1,20 +1,19 @@
 import json
 import inquirer
 
-class OwO:
+class OwOManager:
 	def __init__(self):
 		self.mode = ['Yes', 'No']
-
-		self.file = "configs/owo.json"
+		self.file = "configs/owo_selfbot.json"
 
 		with open("assets/template.json") as file:
-			self.template = json.load(file)['owo']
+			self.template = json.load(file)['owo_selfbot']
 
 		self.features = [
 			"Select all",
 			"Check OwO status and pause when it is offline",
 			"Join OwO giveaway",
-			"Get owo prefix or set it as default",
+			"Get OwO prefix or set it as default",
 			"Change channel when someone mentions",
 			"Accept challenge from someone",
 			"Add channel id",
@@ -27,7 +26,7 @@ class OwO:
 			"Go to sleep",
 			"Grind (Send OwO/UwU, hunt, battle, quote)",
 			"Claim and submit huntbot",
-			"Use gem",
+			"Use gem (open box/crate/flootbox)",
 			"Use gem when distorted animals are available",
 			"Sell/Sacrifice animals",
 			"Check and notify caught pets",
@@ -42,7 +41,6 @@ class OwO:
 		]
 
 	def homepage(self):
-		print(1)
 		with open(self.file) as file:
 			config = json.load(file)
 		choices = ['Back', 'Add accounts', 'Remove accounts']
@@ -63,7 +61,7 @@ class OwO:
 		with open(self.file) as file:
 			config = json.load(file)
 		while True:
-				token = input("[!] Enter your token: ")
+				token = input("[!] Enter a discord token: ")
 				if not token == "" and not " " in token:
 					break
 				print("[-] Token mustn't be empty or have spaces")
@@ -107,7 +105,7 @@ class OwO:
 		if select_all or "Join OwO giveaway" in select:
 			self.join_owo_giveaway(token, config)
 
-		if select_all or "Get owo prefix or set it as default" in select:
+		if select_all or "Get OwO prefix or set it as default" in select:
 			self.get_owo_prefix(token, config)
 
 		if select_all or "Change channel when someone mentions" in select:
@@ -151,7 +149,7 @@ class OwO:
 		if select_all or "Claim and submit huntbot" in select:
 			self.huntbot(token, config)
 
-		if select_all or "Use gem" in select:
+		if select_all or "Use gem (open box/crate/flootbox)" in select:
 			self.gem(token, config)
 
 		if select_all or "Use gem when distorted animals are available" in select:
@@ -204,13 +202,13 @@ class OwO:
 		config[token]['join_owo_giveaway'] = select == "Yes"
 
 	def get_owo_prefix(self, token, config):
-		print(f"[!] Get owo prefix (Recent: {config[token]['get_owo_prefix']['mode']}) or set it as default (Recent: {config[token]['get_owo_prefix']['default']})")
+		print(f"[!] Get OwO prefix (Recent: {config[token]['get_owo_prefix']['mode']}) or set it as default (Recent: {config[token]['get_owo_prefix']['default']})")
 		select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = ['Get OwO prefix', 'Set as default'])
 		if select == "Get OwO prefix":
 			config[token]['get_owo_prefix']['mode'] = True
 		if select == "Set as default":
 			config[token]['get_owo_prefix']['mode'] = False
-			default = input("[!] What is your OwO prefix (Ex: 'owo'): ")
+			default = input("[!] Enter the OwO prefix default (E.g: 'owo'): ")
 			config[token]['get_owo_prefix']['default'] = default
 
 	def someone_mentions(self, token, config):
@@ -226,18 +224,18 @@ class OwO:
 	def channel_id(self, token, config):
 		while True:
 			try:
-				amount = int(input(f"[!] How many channel id do you wanna add (Ex: 10) (Recent: {config[token]['channel_id']}): ")) + 1
+				amount = int(input(f"[!] Enter the amount of channel id (E.g: 10) (Recent: {config[token]['channel_id']}): ")) + 1
 				break
 			except ValueError:
-				print("[-] You must enter a number")
+				print("[-] Must be a number")
 		channel_id = []
 		for num in range(1, amount):
 			while True:
 				try:
-					x = int(input(f"[!] Enter channel id {num}: "))
+					x = int(input(f"[!] Enter the channel id {num}: "))
 					break
 				except ValueError:
-					print("[-] You must enter a number")
+					print("[-] Must be a number")
 			channel_id.append(x)
 		config[token]['channel_id'] = channel_id
 
@@ -248,23 +246,23 @@ class OwO:
 		if data['mode']:
 			while True:
 				try:
-					attempts = int(input(f"[!] How many times do you wanna resolve {name} when wrong (Ex: 3) (Recent: {data['attempts']}): "))
+					attempts = int(input(f"[!] Enter the amount of resolve {name} (E.g: 3) (Recent: {data['attempts']}): "))
 					break
 				except ValueError:
-					print("[-] You must enter a number")
+					print("[-] Must be a number")
 			data['attempts'] = attempts
 			print(f"[!] Sleep after solve {name}")
 			select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = self.mode)
 			data['sleep_after_solve'] = select == "Yes"
 			while True:
 				try:
-					amount = int(input(f"[!] How many TwoCaptcha API do you wanna add to {name} solving system (Ex: 1) (Recent: {data['twocaptcha']}): ")) + 1
+					amount = int(input(f"[!] Enter the amount of TwoCaptcha API for {name} solving system (E.g: 1) (Recent: {data['twocaptcha']}): ")) + 1
 					break
 				except ValueError:
-					print("[-] You must enter a number")
+					print("[-] Must be a number")
 			twocaptcha = []
 			for num in range(1, amount):
-				x = input(f"[!] Enter TwoCaptcha API {num}: ")
+				x = input(f"[!] Enter the TwoCaptcha API {num}: ")
 				twocaptcha.append(x)
 			data['twocaptcha'] = twocaptcha
 
@@ -275,10 +273,10 @@ class OwO:
 		if config[token]['twocaptcha_balance']['mode']:
 			while True:
 				try:
-					amount = float(input(f"[!] How much below do you wanna stop (Ex: 0.01) (Recent: {config[token]['twocaptcha_balance']['amount']}): "))
+					amount = float(input(f"[!] Enter the TwoCaptcha balance wanna stop (E.g: 0.01) (Recent: {config[token]['twocaptcha_balance']['amount']}): "))
 					break
 				except ValueError:
-					print("[-] You must enter a number")
+					print("[-] Must be a number")
 			config[token]['twocaptcha_balance']['amount'] = amount
 
 	def quest(self, token, config):
@@ -288,18 +286,18 @@ class OwO:
 		if config[token]['quest']['mode']:
 			while True:
 				try:
-					amount = int(input(f"[!] How many quest channel id do you wanna add (Ex: 10) (Recent: {config[token]['quest']['channel_id']}): ")) + 1
+					amount = int(input(f"[!] Enter the amount of quest channel id (E.g: 10) (Recent: {config[token]['quest']['channel_id']}): ")) + 1
 					break
 				except ValueError:
-					print("[-] You must enter a number")
+					print("[-] Must be a number")
 			quest_channel_id = []
 			for num in range(1, amount):
 				while True:
 					try:
-						x = int(input(f"[!] Enter quest channel id {num}: "))
+						x = int(input(f"[!] Enter the quest channel id {num}: "))
 						break
 					except ValueError:
-						print("[-] You must enter a number")
+						print("[-] Must be a number")
 				quest_channel_id.append(x)
 			config[token]['quest']['channel_id'] = quest_channel_id
 
@@ -396,24 +394,24 @@ class OwO:
 	def slot_coinflip_blackjack(self, data, name):
 		while True:
 			try:
-				bet = int(input(f"[!] How many cowoncy do you wanna start {name} bet (Ex: 1) (Recent: {data['bet']}): "))
+				bet = int(input(f"[!] Enter the amount of cowoncy to start bet {name} (E.g: 1) (Recent: {data['bet']}): "))
 				break
 			except ValueError:
-				print("[-] You must enter a number")
+				print("[-] Must be a number")
 		data['bet'] = bet
 		while True:
 			try:
-				rate = int(input(f"[!] How many rate do you wanna multiply when lose on {name} (Ex: 2) (Recent: {data['rate']}): "))
+				rate = int(input(f"[!] Enter the rate number to multiply when lose on {name} (E.g: 2) (Recent: {data['rate']}): "))
 				break
 			except ValueError:
-				print("[-] You must enter a number")
+				print("[-] Must be a number")
 		data['rate'] = rate
 		while True:
 			try:
-				max = int(input(f"[!] What is your maximum {name} bet amount (Ex: 250000) (Recent: {data['max']}): "))
+				max = int(input(f"[!] Enter the amount of maximum bet {name} (E.g: 250000) (Recent: {data['max']}): "))
 				break
 			except ValueError:
-				print("[-] You must enter a number")
+				print("[-] Must be a number")
 		data['max'] = max
 
 	def pray_curse(self, token, config):
@@ -429,10 +427,10 @@ class OwO:
 			if select == "Yes":
 				while True:
 					try:
-						user_id = int(input(f"[!] Enter user id to {select.lower()} (Ex: 123456789) (Recent: {config[token]['pray_curse']['user_id']}): "))
+						user_id = int(input(f"[!] Enter a user id to {select.lower()} (E.g: 123456789) (Recent: {config[token]['pray_curse']['user_id']}): "))
 						break
 					except ValueError:
-						print("[-] You must enter a number")
+						print("[-] Must be a number")
 				config[token]['pray_curse']['user_id'] = user_id
 
 	def entertainment(self, token, config):
@@ -451,18 +449,18 @@ class OwO:
 		if config[token]['command']['mode']:
 			while True:
 				try:
-					amount = int(input("[!] How many owner id do you wanna add (Ex: 10): ")) + 1
+					amount = int(input("[!] Enter the amount of owner id (E.g: 10): ")) + 1
 					break
 				except ValueError:
-					print("[-] You must enter a number")
+					print("[-] Must be a number")
 			owner_id = []
 			for num in range(1, amount):
 				while True:
 					try:
-						x = int(input(f"[!] Enter owner id {num}: "))
+						x = int(input(f"[!] Enter the owner id {num}: "))
 						break
 					except ValueError:
-						print("[-] You must enter a number")
+						print("[-] Must be a number")
 				owner_id.append(x)
 			config[token]['command']['owner_id'] = owner_id
 
@@ -473,21 +471,21 @@ class OwO:
 		if config[token]['webhook']['mode']:
 			while True:
 				try:
-					amount = int(input(f"[!] How many mentioner id do you wanna add (Ex: 10) (Recent: {config[token]['webhook']['mentioner_id']}): ")) + 1
+					amount = int(input(f"[!] Enter the amount of mentioner id (E.g: 10) (Recent: {config[token]['webhook']['mentioner_id']}): ")) + 1
 					break
 				except ValueError:
-					print("[-] You must enter a number")
+					print("[-] Must be a number")
 			mentioner_id = []
 			for num in range(1, amount):
 				while True:
 					try:
-						x = int(input(f"[!] Enter mentioner id {num}: "))
+						x = int(input(f"[!] Enter the mentioner id {num}: "))
 						break
 					except ValueError:
-						print("[-] You must enter a number")
+						print("[-] Must be a number")
 				mentioner_id.append(x)
 			config[token]['webhook']['mentioner_id'] = mentioner_id
-			config[token]['webhook']['url'] = input(f"[!] What is your webhook url (Ex: discord.com/api/webhooks/123/abc) (Recent: {config[token]['webhook']['url']}): ")
+			config[token]['webhook']['url'] = input(f"[!] Enter the webhook url (E.g: discord.com/api/webhooks/123/abc) (Recent: {config[token]['webhook']['url']}): ")
 
 	def log_file(self, token, config):
 		print(f"[!] Log file (Recent: {config[token]['log_file']})")
@@ -502,48 +500,65 @@ class OwO:
 	def error_retry_times(self, token, config):
 		while True:
 			try:
-				times = int(input(f"[!] How many times do you wanna retry when have errors (Ex: 10) (Recent: {config[token]['error_retry_times']}): "))
+				times = int(input(f"[!] Enter error retry times (E.g: 10) (Recent: {config[token]['error_retry_times']}): "))
 				break
 			except ValueError:
-				print("[-] You must enter a number")
+				print("[-] Must be a number")
 		config[token]['error_retry_times'] = times
 
-class Selfbot:
+class Key:
 	def __init__(self):
-		self.mode = ['Yes', 'No']
-		self.file = "configs/selfbot.json"
+		self.file = "configs/key.json"
 
 	def homepage(self):
 		with open(self.file) as file:
 			config = json.load(file)
-		select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = ['Back', 'Key', 'OwO'])
+		select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = ['Back', 'Payment', 'Trial'])
 		if select == "Back":
 			return
-		if select == "Key":
-			self.key(config)
-		if select == "OwO":
-			self.owo(config)
+		if select == "Payment":
+			config['payment'] = input(f"Enter the payment key (Recent: {config['payment']}): ")
+		if select == "Trial":
+			config['trial'] = input(f"Enter the trial key (Recent: {config['trial']}): ")
 		with open(self.file, "w") as file:
 			json.dump(config, file, indent = 4)
 		print("[+] Saved!")
 		self.homepage()
 
-	def key(self, config):
-		config['key'] = input(f"Enter your key (Recent: {config['key']}): ")
+class Mode:
+	def __init__(self):
+		self.mode = ['Yes', 'No']
+		self.file = "configs/mode.json"
 
-	def owo(self, config):
-		print(f"[!] OwO (Recent: {config['owo']})")
+	def homepage(self):
+		with open(self.file) as file:
+			config = json.load(file)
+		select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = ['Back', 'OwO Selfbot'])
+		if select == "Back":
+			return
+		if select == "OwO Selfbot":
+			self.owo_selfbot(config)
+		with open(self.file, "w") as file:
+			json.dump(config, file, indent = 4)
+		print("[+] Saved!")
+		self.homepage()
+
+	def owo_selfbot(self, config):
+		print(f"[!] OwO Selfbot (Recent: {config['owo_selfbot']})")
 		select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = self.mode)
-		config['owo'] = select == "Yes"
+		config['owo_selfbot'] = select == "Yes"
 
 def start():
-	select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = ['OwO', 'Selfbot'])
-	if select == "OwO":
-		setup_owo = OwO()
-		setup_owo.homepage()
-	if select == "Selfbot":
-		setup_selfbot = Selfbot()
-		setup_selfbot.homepage()
+	select = inquirer.list_input("Move ↑↓ and ENTER to select", choices = ['Key', 'Mode', 'OwO Manager'])
+	if select == "Key":
+		key = Key()
+		key.homepage()
+	if select == "Mode":
+		mode = Mode()
+		mode.homepage()
+	if select == "OwO Manager":
+		owo_manager = OwOManager()
+		owo_manager.homepage()
 	start()
 
 if __name__ == "__main__":

@@ -1,2 +1,109 @@
-import base64
-exec(base64.b64decode(b'aW1wb3J0IGpzb24NCmltcG9ydCB0aHJlYWRpbmcNCmltcG9ydCByZXF1ZXN0cw0KDQpmcm9tIHB1YmxpYy5jb2xvciBpbXBvcnQgQ29sb3INCmZyb20gb3dvLmNsaWVudCBpbXBvcnQgT3dPU2VsZmJvdA0KDQpkZWYgc3RhcnQoKToNCgl0aHJlYWRzID0gW10NCg0KCWlmIHNlbGZib3RfY29uZmlnWydvd28nXToNCgkJd2l0aCBvcGVuKGYiY29uZmlncy9vd28uanNvbiIpIGFzIGZpbGU6DQoJCQlvd29fY29uZmlnID0ganNvbi5sb2FkKGZpbGUpDQoJCU93T0NsaWVudHMgPSBbXQ0KCQlmb3IgdG9rZW4gaW4gb3dvX2NvbmZpZzoNCgkJCQlPd09DbGllbnQgPSBPd09TZWxmYm90KE93T0NsaWVudHMsIHRva2VuKQ0KCQkJCU93T0NsaWVudHMuYXBwZW5kKE93T0NsaWVudCkNCgkJCQl0aHJlYWQgPSB0aHJlYWRpbmcuVGhyZWFkKHRhcmdldCA9IE93T0NsaWVudC5ydW4sIGRhZW1vbiA9IFRydWUsIGFyZ3MgPSAodG9rZW4sKSkNCgkJCQl0aHJlYWRzLmFwcGVuZCh0aHJlYWQpDQoJCQkJdGhyZWFkLnN0YXJ0KCkNCg0KCWZvciB0aHJlYWQgaW4gdGhyZWFkczoNCgkJdGhyZWFkLmpvaW4oKQ0KDQppZiBfX25hbWVfXyA9PSAiX19tYWluX18iOg0KCXByaW50KCkNCglwcmludChmIntDb2xvci5ib2xkfVlvdSBBcmUgVXNpbmd7Q29sb3IucmVzZXR9IHtDb2xvci5ibHVlfVBoYW5kYXQgU2VsZmJvdHtDb2xvci5yZXNldH0ge0NvbG9yLmJvbGR9fCBodHRwczovL2dpdGh1Yi5jb20vcmVhbHBoYW5kYXQvcGhhbmRhdC1zZWxmYm90e0NvbG9yLnJlc2V0fSIpDQoJcHJpbnQoZiJ7Q29sb3IuYm9sZH1DcmVhdGVkIHdpdGh7Q29sb3IucmVzZXR9IHtDb2xvci55ZWxsb3d9Z3JlYXQgY29udHJpYnV0aW9uc3tDb2xvci5yZXNldH0ge0NvbG9yLmJvbGR9ZnJvbXtDb2xvci5yZXNldH0ge0NvbG9yLmdyZWVufWFkdWNrIChhaGloaXlvdTIwKXtDb2xvci5yZXNldH0ge0NvbG9yLmJvbGR9YW5ke0NvbG9yLnJlc2V0fSB7Q29sb3IuZ3JlZW59Q2V4IChjZXN4b3Mpe0NvbG9yLnJlc2V0fSIpDQoJcHJpbnQoKQ0KCXdpdGggb3BlbihmImNvbmZpZ3Mvc2VsZmJvdC5qc29uIikgYXMgZmlsZToNCgkJc2VsZmJvdF9jb25maWcgPSBqc29uLmxvYWQoZmlsZSkNCglnaXRodWIgPSByZXF1ZXN0cy5nZXQoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9yZWFscGhhbmRhdC9yZWFscGhhbmRhdC9tYWluL2tleS50eHQiKS50ZXh0DQoJa2V5cyA9IGxpc3QoZmlsdGVyKGJvb2wsIGdpdGh1Yi5zcGxpdCgiXG4iKSkpDQoJaWYgc2VsZmJvdF9jb25maWdbJ2tleSddIGluIGtleXM6DQoJCXByaW50KGYie0NvbG9yLmJsdWV9W0lORk9de0NvbG9yLnJlc2V0fSB7Q29sb3IuYm9sZH1Zb3VyIGtleSBpc3tDb2xvci5yZXNldH0ge0NvbG9yLmdyZWVufUNPUlJFQ1R7Q29sb3IucmVzZXR9IHtDb2xvci5ib2xkfSh7c2VsZmJvdF9jb25maWdbJ2tleSddfSl7Q29sb3IucmVzZXR9IikNCgkJcHJpbnQoKQ0KCQlzdGFydCgpDQoJZWxzZToNCgkJcHJpbnQoZiJ7Q29sb3IuYmx1ZX1bSU5GT117Q29sb3IucmVzZXR9IHtDb2xvci5ib2xkfVlvdXIga2V5IGlze0NvbG9yLnJlc2V0fSB7Q29sb3IucmVkfUlOQ09SUkVDVHtDb2xvci5yZXNldH0ge0NvbG9yLmJvbGR9KHtzZWxmYm90X2NvbmZpZ1sna2V5J119KXtDb2xvci5yZXNldH0iKQ==').decode("utf-8"))
+import sys
+import json
+import time
+import datetime
+import requests
+import threading
+
+from owo.client import OwOSelfbot
+
+class KeyManager:
+	def __init__(self, client):
+		self.client = client
+		self.payment_key = self.get_payment()
+		self.trial_key = self.get_trial()
+
+	def get_payment(self):
+		github = requests.get(self.client.data['key']['payment']).text
+		return list(filter(bool, github.split("\n")))
+
+	def get_trial(self):
+		github = requests.get(self.client.data['key']['trial']).text
+		return list(filter(bool, github.split("\n")))
+
+	def get_date(self):
+		date = datetime.datetime.now(datetime.UTC)
+		return date.year * date.month * date.day
+
+	def expire_trial(self):
+		expire = datetime.datetime.now(datetime.UTC).replace(hour = 0, minute = 0, second = 0, microsecond = 0)
+		if datetime.datetime.now(datetime.UTC) < expire:
+			expire = expire - datetime.timedelta(days = 1)
+		expire = (expire - datetime.datetime.now(datetime.UTC)).seconds
+		print(expire)
+		print(f"[+] It will expire in {datetime.timedelta(seconds = expire)}")
+		return(expire)
+
+	def enter_trial(self):
+		key = self.get_date()
+		print(f"[+] Get trial key: {"".join(f"\n[+] {x}" for x in self.trial_key)}\n")
+		answer = input("[?] Enter trial key: ")
+		if answer == str(key):
+			with open(self.client.file) as file:
+				config = json.load(file)
+			config['trial'] = answer
+			with open("configs/key.json", "w") as file:
+				json.dump(config, file, indent = 4)
+			print(f"[+] The trial key is CORRECT ({answer})")
+			return True
+		else:
+			print(f"[-] The trial key is INCORRECT ({answer})")
+
+class PhandatSelfbot:
+	def __init__(self):
+		self.file = "configs/key.json"
+		self.data = self.get_data()
+		self.key_manager = KeyManager(self)
+
+	def get_data(self):
+		return requests.get("https://raw.githubusercontent.com/realphandat/realphandat/main/phandat-selfbot/data.json").json()
+
+	def owo_selfbot(self):
+		threads = []
+		OwOClients = []
+		with open("configs/owo_selfbot.json") as file:
+			owo_config = json.load(file)
+		for token in owo_config:
+			OwOClient = OwOSelfbot(OwOClients, token)
+			OwOClients.append(OwOClient)
+			thread = threading.Thread(target = OwOClient.run, daemon = True, args = (token,))
+			threads.append(thread)
+			thread.start()
+		return threads
+
+	def start(self, expire):
+		threads = []
+		with open("configs/mode.json") as file:
+			mode = json.load(file)
+		if mode['owo_selfbot']:
+			threads.extend(self.owo_selfbot())
+
+		if expire:
+			time.sleep(expire)
+			sys.exit("[-] The trial key expired")
+		else:
+			for thread in threads:
+				thread.join()
+
+	def check_key(self):
+		print(requests.get(self.data['intro']).text)
+
+		expire = 0
+		with open("configs/key.json") as file:
+			key = json.load(file)
+		if key['payment'] in self.key_manager.payment_key:
+			print(f"[+] The payment key is CORRECT ({key['payment']})")
+		else:
+			print(f"[-] The payment key is INCORRECT ({key['payment']})")
+			if key['trial'] == str(self.key_manager.get_date()):
+				print(f"[+] The trial key is CORRECT ({key['trial']})")
+			else:
+				if not self.key_manager.enter_trial():
+					return
+			expire = self.key_manager.expire_trial()
+		self.start(expire)
+
+
+if __name__ == "__main__":
+	phandat_selfbot = PhandatSelfbot()
+	phandat_selfbot.check_key()

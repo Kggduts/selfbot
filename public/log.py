@@ -27,14 +27,14 @@ class Log:
 	def __init__(self, client):
 		self.client = client
 
-	async def create(self, type):
+	async def create(self, name):
 		logger = logging.getLogger(str(self.client.user.name))
 		logger.setLevel(logging.DEBUG)
 		console_handler = logging.StreamHandler()
 		console_handler.setFormatter(CustomFormatter())
 		logger.addHandler(console_handler)
 		if self.client.data.config.log_file:
-			file = f"logs/{type}/{str(self.client.user.name)}.log"
+			file = f"logs/{name}/{str(self.client.user.name)}.txt"
 			file_handler = logging.handlers.WatchedFileHandler(file, encoding = "utf-8", mode = "a+")
 			file_handler.setFormatter(CustomFormatter(is_file = True))
 			logger.addHandler(file_handler)

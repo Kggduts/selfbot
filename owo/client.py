@@ -29,14 +29,12 @@ class OwOSelfbot(discord.Client):
 		if self.data.selfbot.on_ready:
 			self.data.selfbot.on_ready = False
 			self.data.owo = self.get_user(self.data.owo.id)
-			self.logger = await self.log.create("owo")
+			self.logger = await self.log.create("owo_selfbot")
 			await self.modules.startup()
 			await self.modules.intro()
 			await self.tasks.start()
 
 	async def on_message(self, message):
-		if self.data.selfbot.expire:
-			sys.exit()
 		await self.modules.detect_image_captcha(message)
 		await self.modules.detect_hcaptcha(message)
 		await self.modules.detect_unknown_captcha(message)
