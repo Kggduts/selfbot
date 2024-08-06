@@ -156,7 +156,7 @@ class Modules:
 			self.client.logger.info(f"Sent {self.client.data.discord.prefix}q")
 			self.client.data.stat.command += 1
 			try:
-				quest_message = await self.client.wait_for("message", check = lambda message: self.client.conditions.message(message, True, True, [], []) and message.embeds and f"These quests belong to <@{self.client.user.id}>" in message.embeds[0].description, timeout = 5)
+				quest_message = await self.client.wait_for("message", check = lambda message: self.client.conditions.message(message, True, True, [], []) and message.embeds and message.embeds[0].description and f"These quests belong to <@{self.client.user.id}>" in message.embeds[0].description, timeout = 5)
 				if "You finished all of your quests" in quest_message.embeds[0].description:
 					self.client.data.available.quest = False
 					next_quest = self.client.conditions.reset_time()
