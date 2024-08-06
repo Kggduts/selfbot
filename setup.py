@@ -370,7 +370,7 @@ class OwOManager:
 			print(f"[!] Which rank do you want (Recent: {config[token]['animals']['rank']})")
 			select = inquirer.checkbox("Move ↑↓ and SPACE to choose, then ENTER to select", choices = ['Common', 'Uncommon', 'Rare', 'Epic', 'Special', 'Mythical', 'Legendary', 'Gem', 'Bot', 'Distorted', 'Fabled', 'Hidden'])
 			if select:
-				config[token]['animals']['rank'] = "".join(f"{x[0]}" for x in select)
+				config[token]['animals']['rank'] = "".join(f"{x[0]} " for x in select)
 
 	def caught(self, token, config):
 		print(f"[!] Check and notify caught pets (Recent: {config[token]['caught']})")
